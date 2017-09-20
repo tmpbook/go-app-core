@@ -1,18 +1,17 @@
 <h1>Go Application Core</h1>
 
-[中文 README.md](README-zh.md)
+本项目为 Go 程序提供基本的配置文件管理和命令行参数管理等功能，追求 Go 编程最佳实践
 
-This project provides the basic configuration file management and command line parameter management for Go program, and continuing to pursue Go programming best practices.
+### 截图
 
-### Screenshots
-
-#### Terminal
+#### 终端操作
 ![demo](images/terminal.png)
 
-#### Chrome
+#### 浏览器
 
 ![chrome](images/chrome.png)
-### usage
+
+## 具体使用方法
 
 ```bash
 cd demo/
@@ -20,16 +19,16 @@ make
 ./demo -h 127.0.0.1 -p 8888 -c ./config.json
 ```
 
-### Check compile version
+### 查看编译版本
 ```bash
 ➜ ./demo -v
 Git Commit: e6a6ba1
 Build Time: 2017-09-20T19:23:19+0800
 ```
 
-### Run
+### 启动（go run）
 ```bash
-➜ go run demo.go
+➜ ./demo.go
 =-------=
 | flags |
 =-------=
@@ -50,9 +49,9 @@ flag = v          value = false           help = version
 2017/09/20 19:22:21 Listening on: localhost:8910
 ```
 
-### Read from config.json
+### 从 config.json 文件读取配置
 
-If we have a `config.json` file like below:
+如果我们有一个 config.json 如下：
 ```json
 {
     "version": "1.0",
@@ -61,8 +60,10 @@ If we have a `config.json` file like below:
     }
 }
 ```
-Read it like this:
+使用这个语句来读取。
 ```go
 content, _ := common.GetConfigByKey("content.say-hello")
 ```
-As you see, it support get config with dot.
+如你所见，它支持点号分隔的取法。
+
+> 任何想法都可以[告诉我](https://github.com/tmpbook/go-app-core/issues/new)
