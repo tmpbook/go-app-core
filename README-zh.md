@@ -2,31 +2,23 @@
 
 本项目为 Go 程序提供基本的配置文件管理和命令行参数管理等功能，追求 Go 编程最佳实践
 
-### 截图
+### 具体使用方法
 
-#### 终端操作
-![demo](images/terminal.png)
-
-#### 浏览器
-
-![chrome](images/chrome.png)
-
-## 具体使用方法
-
+#### Step 1：编译
 ```bash
 cd demo/
 make
 ./demo -h 127.0.0.1 -p 8888 -c ./config.json
 ```
+查看编译版本
 
-### 查看编译版本
 ```bash
 ➜ ./demo -v
 Git Commit: e6a6ba1
 Build Time: 2017-09-20T19:23:19+0800
 ```
 
-### 启动（go run）
+### Step 2：启动
 ```bash
 ➜ ./demo.go
 =-------=
@@ -65,5 +57,14 @@ flag = v          value = false           help = version
 content, _ := common.GetConfigByKey("content.say-hello")
 ```
 如你所见，它支持点号分隔的取法。
+
+### 截图
+
+#### 终端操作
+![demo](images/terminal.png)
+
+#### 浏览器
+
+![chrome](images/chrome.png)
 
 > 任何想法都可以[告诉我](https://github.com/tmpbook/go-app-core/issues/new)

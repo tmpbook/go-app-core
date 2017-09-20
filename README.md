@@ -4,32 +4,25 @@
 
 This project provides the basic configuration file management and command line parameter management for Go program, and continuing to pursue Go programming best practices.
 
-### Screenshots
+### Usage
 
-#### Terminal
-![demo](images/terminal.png)
-
-#### Chrome
-
-![chrome](images/chrome.png)
-### usage
+#### Step 1: Compile
 
 ```bash
 cd demo/
 make
 ./demo -h 127.0.0.1 -p 8888 -c ./config.json
 ```
-
-### Check compile version
+Check compile version
 ```bash
 ➜ ./demo -v
 Git Commit: e6a6ba1
 Build Time: 2017-09-20T19:23:19+0800
 ```
 
-### Run
+### Step 2: Run
 ```bash
-➜ go run demo.go
+➜ ./demo.go
 =-------=
 | flags |
 =-------=
@@ -66,3 +59,14 @@ Read it like this:
 content, _ := common.GetConfigByKey("content.say-hello")
 ```
 As you see, it support get config with dot.
+
+### Screenshots
+
+#### Terminal
+![demo](images/terminal.png)
+
+#### Chrome
+
+![chrome](images/chrome.png)
+
+> [New issue](https://github.com/tmpbook/go-app-core/issues/new)
