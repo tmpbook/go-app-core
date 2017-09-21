@@ -10,12 +10,12 @@ install:
   - go get github.com/go-sql-driver/mysql
 
 before_script:
-  - cd demo
+  - go test -v ./utils/common/
 
 after_script:
   - rm -rf demo
 
 script:
-  - go test -v ./utils/common/
+  - cd demo
   - make
   - ./demo -v
