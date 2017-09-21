@@ -1,12 +1,12 @@
 package main
 
 import (
-	"flag" // flag v
-	"go-app-core/demo/config"
-	"go-app-core/demo/controllers"
+	"flag"
 	"log"
 	"net/http"
 
+	"github.com/tmpbook/go-app-core/demo/config"
+	"github.com/tmpbook/go-app-core/demo/controllers"
 	"github.com/tmpbook/go-app-core/utils/common"
 )
 
