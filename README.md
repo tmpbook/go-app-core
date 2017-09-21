@@ -22,7 +22,7 @@ Git Commit: e6a6ba1
 Build Time: 2017-09-20T19:23:19+0800
 ```
 
-### Step 2: Run
+#### Step 2: Run
 ```bash
 ➜ ./demo.go
 =-------=
