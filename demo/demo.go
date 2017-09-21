@@ -34,6 +34,7 @@ func main() {
 
 	// 开始你的表演
 	mux.Handle("/", &controllers.DemoController{})
+	mux.Handle("/reload-config", &controllers.ReloadConfigController{})
 
 	hostPort := *host + ":" + *port
 

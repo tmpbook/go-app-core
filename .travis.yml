@@ -16,5 +16,6 @@ after_script:
   - rm -rf demo
 
 script:
+  - go test -v ./utils/common/
   - make
   - ./demo -v
