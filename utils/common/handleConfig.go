@@ -7,7 +7,10 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
+	"os/signal"
 	"strings"
+	"syscall"
 )
 
 // they has setter & getter
@@ -94,4 +97,18 @@ func ReloadConfig() (err error) {
 	log.Println("Reloading config...")
 	err = LoadConfigFromFile(configFile)
 	return
+}
+
+func watch() {
+	l := log.New(os.Stderr, "", 0)
+
+	// Catch SIGHUP to automatically reload cache
+	sighup := make(chan os.Signal, 1)
+	signal.Notify(sighup, syscall.SIGHUP)
+
+	for {
+		<-sighup
+		l.Println("Caught SIGHUP, reloading config...")
+		ReloadConfig()
+	}
 }
