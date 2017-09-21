@@ -1,13 +1,13 @@
 package main
 
 import (
-	"flag"
+	"flag" // flag v
 	"go-app-core/demo/config"
 	"go-app-core/demo/controllers"
-	"go-app-core/demo/version" // flag v
-	"go-app-core/utils/common"
 	"log"
 	"net/http"
+
+	"github.com/tmpbook/go-app-core/utils/common"
 )
 
 var (
@@ -24,7 +24,7 @@ func init() {
 
 func main() {
 	// -v 打印 version
-	version.Print()
+	common.PrintVersion()
 	// 打印解析后的 flags
 	common.PrintFlags()
 	// 打印读取的配置文件

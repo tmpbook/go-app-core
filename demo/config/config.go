@@ -2,8 +2,9 @@ package config
 
 import (
 	"flag"
-	"go-app-core/utils/common"
 	"log"
+
+	"github.com/tmpbook/go-app-core/utils/common"
 )
 
 var (

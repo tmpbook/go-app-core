@@ -2,9 +2,10 @@ package controllers
 
 import (
 	"fmt"
-	"go-app-core/utils/common"
 	"log"
 	"net/http"
+
+	"github.com/tmpbook/go-app-core/utils/common"
 )
 
 // DemoController R.T.
