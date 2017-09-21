@@ -63,8 +63,9 @@ content, _ := common.GetConfigByKey("content.say-hello")
 #### 终端操作
 ![demo](images/terminal.png)
 
-#### 浏览器
+#### 测试 Http
 
 ![chrome](images/chrome.png)
 
-> 任何想法都可以[告诉我](https://github.com/tmpbook/go-app-core/issues/new)
+#### Contribution Welcomed!
+> [Report issue](https://github.com/tmpbook/go-app-core/issues/new) or pull request, or email nauy2011@126.com，任何想法都可以[告诉我](https://github.com/tmpbook/go-app-core/issues/new)

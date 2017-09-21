@@ -65,8 +65,10 @@ As you see, it support get config with dot.
 #### Terminal
 ![demo](images/terminal.png)
 
-#### Chrome
+
+#### Http test
 
 ![chrome](images/chrome.png)
 
-> [New issue](https://github.com/tmpbook/go-app-core/issues/new)
+#### Contribution Welcomed!
+> [Report issue](https://github.com/tmpbook/go-app-core/issues/new) or pull request, or email nauy2011@126.com.
