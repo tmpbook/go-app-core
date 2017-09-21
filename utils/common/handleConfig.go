@@ -73,6 +73,7 @@ func LoadConfigFromData(data []byte) (err error) {
 
 // LoadConfigFromFile 从文件中读取配置，提供 Getter: GetConfigByKey 获取
 func LoadConfigFromFile(filename string) (err error) {
+	go watch()
 	configFile = filename
 	configByte, err = ioutil.ReadFile(filename)
 	if err != nil {
