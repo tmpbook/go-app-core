@@ -6,6 +6,9 @@ go:
   - 1.8.1
   - master
 
+go_import_path:
+  - github.com/tmpbook
+
 install:
   - go get github.com/go-sql-driver/mysql
 
