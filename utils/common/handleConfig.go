@@ -73,7 +73,6 @@ func LoadConfigFromData(data []byte) (err error) {
 
 // LoadConfigFromFile 从文件中读取配置，提供 Getter: GetConfigByKey 获取
 func LoadConfigFromFile(filename string) (err error) {
-	go watch()
 	configFile = filename
 	configByte, err = ioutil.ReadFile(filename)
 	if err != nil {
@@ -95,12 +94,12 @@ func PrintConfig() {
 
 // ReloadConfig 重新读取新的配置
 func ReloadConfig() (err error) {
-	log.Println("Reloading config...")
 	err = LoadConfigFromFile(configFile)
 	return
 }
 
-func watch() {
+// WatchReload watch signal to reload config file
+func WatchReload() {
 	l := log.New(os.Stderr, "", 0)
 
 	// Catch SIGHUP to automatically reload cache
