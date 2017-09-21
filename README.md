@@ -1,6 +1,6 @@
 <h1>Go Application Core</h1>
 
-[![Build Status](https://travis-ci.org/tmpbook/go-app-core.svg?branch=master)](https://travis-ci.org/tmpbook/go-app-core)
+[![Build Status](https://travis-ci.org/tmpbook/go-app-core.svg?branch=master)](https://travis-ci.org/tmpbook/go-app-core) [![Go Report Card](https://goreportcard.com/badge/github.com/tmpbook/go-app-core)](https://goreportcard.com/report/github.com/tmpbook/go-app-core)
 
 This project provides the basic configuration file management and command line parameter management for Go program, and continuing to pursue Go programming best practices.
 

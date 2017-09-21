@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"strings"
 )
 
@@ -13,6 +14,7 @@ import (
 var (
 	configByte []byte
 	configMap  map[string]interface{}
+	configFile string
 )
 
 type block struct {
@@ -68,6 +70,7 @@ func LoadConfigFromData(data []byte) (err error) {
 
 // LoadConfigFromFile 从文件中读取配置，提供 Getter: GetConfigByKey 获取
 func LoadConfigFromFile(filename string) (err error) {
+	configFile = filename
 	configByte, err = ioutil.ReadFile(filename)
 	if err != nil {
 		return
@@ -84,4 +87,11 @@ func PrintConfig() {
 	fmt.Println("|configs|")
 	fmt.Println("=-------=")
 	fmt.Println(string(prejson.Bytes()))
+}
+
+// ReloadConfig 重新读取新的配置
+func ReloadConfig() (err error) {
+	log.Println("Reloading config...")
+	err = LoadConfigFromFile(configFile)
+	return
 }
