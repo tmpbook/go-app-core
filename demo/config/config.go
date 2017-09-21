@@ -15,7 +15,7 @@ var (
 // Init 初始化读取配置文件
 func init() {
 	confFile = flag.String("c", "config.json", "configuration file, json format")
-	watch = flag.Bool("w", false, "reload config file by signal")
+	watch = flag.Bool("w", false, "reload config file by signal (kill -s SIGHUP [pid])")
 }
 
 // Load 读取 flag 指定的文件
