@@ -2,21 +2,17 @@ package controllers
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/tmpbook/go-app-core/utils/common"
 )
 
 // DemoController R.T.
-type DemoController struct{}
-
-func (*DemoController) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	log.Println(r.Method)
-	if r.Method != "GET" {
-		http.Error(w, "Method Not Allowed", 405)
-		return
+func DemoController(w http.ResponseWriter, r *http.Request) error {
+	content, err := common.GetConfigByKey("content.say-hello")
+	if err != nil {
+		return fmt.Errorf("when get config key: %v", err)
 	}
-	content, _ := common.GetConfigByKey("content.say-hello")
 	fmt.Fprintln(w, content.(string))
+	return nil
 }

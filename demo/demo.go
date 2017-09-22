@@ -7,6 +7,8 @@ import (
 
 	"github.com/tmpbook/go-app-core/demo/config"
 	"github.com/tmpbook/go-app-core/demo/controllers"
+
+	"github.com/tmpbook/go-app-core/net/decorator"
 	"github.com/tmpbook/go-app-core/utils/common"
 )
 
@@ -30,14 +32,12 @@ func main() {
 	// 打印读取的配置文件
 	common.PrintConfig()
 
-	mux := http.NewServeMux()
-
 	// 开始你的表演
-	mux.Handle("/", &controllers.DemoController{})
-	mux.Handle("/reload-config", &controllers.ReloadConfigController{})
+	http.HandleFunc("/", decorator.ErrorCatcher(controllers.DemoController))
+	http.HandleFunc("/reload-config", decorator.ErrorCatcher(controllers.ReloadConfigController))
 
 	hostPort := *host + ":" + *port
 
-	log.Print("Running in: ", hostPort)
-	log.Fatal(http.ListenAndServe(hostPort, mux))
+	log.Print("Listinning on: ", hostPort)
+	log.Fatal(http.ListenAndServe(hostPort, nil))
 }
