@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-// PrintFlags 输出所有已解析的 flag
+// PrintFlags print all parsed flags
 func PrintFlags() {
 
 	// prevent users from forgetting
@@ -22,11 +22,11 @@ func PrintFlags() {
 	flag.VisitAll(visitor)
 }
 
-// GetFlagByName 通过 flag name 获取 value
+// GetFlagByName get value by flag name
 func GetFlagByName(name string) (value string, err error) {
 	flag := flag.Lookup(name)
 	if flag == nil {
-		return "", fmt.Errorf("Can't find option[\"%s\"]", name)
+		return "", fmt.Errorf("Can't find flag[\"%s\"]", name)
 	}
 	return flag.Value.String(), nil
 }

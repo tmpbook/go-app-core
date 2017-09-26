@@ -12,12 +12,13 @@ var (
 	version   *bool
 )
 
-// Init 添加 flag
 func init() {
 	version = flag.Bool("v", false, "version")
 }
 
-// PrintVersion 如果调用了 init，那么用户可以控制是否输出当前版本
+// PrintVersion if import this(version) package
+// you can run the function below to print version
+// which injected by `-ldflags` when compile
 func PrintVersion() {
 
 	// prevent users from forgetting

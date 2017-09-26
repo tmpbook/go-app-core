@@ -59,7 +59,7 @@ func getConfig(data map[string]interface{}) (*block, error) {
 	}, nil
 }
 
-// GetConfigByKey 从 JSONObject 中读取 key，支持点号
+// GetConfigByKey read key value from configMap, support `.`
 func GetConfigByKey(keys string) (value interface{}, err error) {
 	keyList := strings.Split(keys, ".")
 	block, err := getConfig(configMap)
@@ -107,7 +107,7 @@ func LoadConfigFromFileAndWatch() (err error) {
 
 	if *watch {
 		go watchReload()
-		log.Println("Starting watching signal...")
+		log.Println("Start watching signal...")
 	}
 	return
 }
@@ -122,7 +122,7 @@ func PrintConfig() {
 	fmt.Println(string(prejson.Bytes()))
 }
 
-// ReloadConfig 重新读取新的配置
+// ReloadConfig reload config file
 func ReloadConfig() (err error) {
 	err = LoadConfigFromFile(configFile)
 	return
