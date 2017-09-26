@@ -8,7 +8,7 @@ import (
 // PrintFlags 输出所有已解析的 flag
 func PrintFlags() {
 
-	// 防止用户忘记解析
+	// prevent users from forgetting
 	if !flag.Parsed() {
 		flag.Parse()
 	}
@@ -16,9 +16,9 @@ func PrintFlags() {
 	visitor := func(a *flag.Flag) {
 		fmt.Println("flag =", a.Name, "\t", " value =", a.Value, "\t", a.Usage)
 	}
-	fmt.Println("=-------=")
-	fmt.Println("| flags |")
-	fmt.Println("=-------=")
+	fmt.Println("-------")
+	fmt.Println(" flags ")
+	fmt.Println("-------")
 	flag.VisitAll(visitor)
 }
 

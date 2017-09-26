@@ -19,6 +19,12 @@ func init() {
 
 // PrintVersion 如果调用了 init，那么用户可以控制是否输出当前版本
 func PrintVersion() {
+
+	// prevent users from forgetting
+	if !flag.Parsed() {
+		flag.Parse()
+	}
+
 	if *version {
 		fmt.Println("Git Commit: " + gitCommit)
 		fmt.Println("Build Time: " + buildTime)

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -13,12 +14,21 @@ import (
 	"syscall"
 )
 
-// they has setter & getter
 var (
+	// flag params
+	confFile *string
+	watch    *bool
+
+	// they has setter & getter
 	configByte []byte
 	configMap  map[string]interface{}
 	configFile string
 )
+
+func init() {
+	confFile = flag.String("c", "config.json", "configuration file, json format")
+	watch = flag.Bool("w", false, "reload config file by signal (kill -s SIGHUP [pid])")
+}
 
 type block struct {
 	data interface{}
@@ -65,13 +75,13 @@ func GetConfigByKey(keys string) (value interface{}, err error) {
 	return block.data, nil
 }
 
-// LoadConfigFromData 从 Byte 切片中读取配置，存入 configMap 变量
+// LoadConfigFromData read config from []byte, and store it into configMap
 func LoadConfigFromData(data []byte) (err error) {
 	err = json.Unmarshal(data, &configMap)
 	return
 }
 
-// LoadConfigFromFile 从文件中读取配置，提供 Getter: GetConfigByKey 获取
+// LoadConfigFromFile read config from json file
 func LoadConfigFromFile(filename string) (err error) {
 	configFile = filename
 	configByte, err = ioutil.ReadFile(filename)
@@ -82,13 +92,33 @@ func LoadConfigFromFile(filename string) (err error) {
 	return
 }
 
-// PrintConfig 输出导入的 config 文件
+// LoadConfigFromFileAndWatch read configuration from json file, and through the -w flag to decide whether to watch the signal
+func LoadConfigFromFileAndWatch() (err error) {
+
+	// prevent users from forgetting
+	if !flag.Parsed() {
+		flag.Parse()
+	}
+
+	err = LoadConfigFromFile(*confFile)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if *watch {
+		go watchReload()
+		log.Println("Starting watching signal...")
+	}
+	return
+}
+
+// PrintConfig display all configs
 func PrintConfig() {
 	var prejson bytes.Buffer
 	json.Indent(&prejson, configByte, "", "  ")
-	fmt.Println("=-------=")
-	fmt.Println("|configs|")
-	fmt.Println("=-------=")
+	fmt.Println("---------")
+	fmt.Println(" configs")
+	fmt.Println("---------")
 	fmt.Println(string(prejson.Bytes()))
 }
 
@@ -99,7 +129,7 @@ func ReloadConfig() (err error) {
 }
 
 // WatchReload watch signal to reload config file
-func WatchReload() {
+func watchReload() {
 	l := log.New(os.Stderr, "", 0)
 
 	// Catch SIGHUP to automatically reload cache
