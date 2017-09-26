@@ -5,9 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/tmpbook/go-app-core/demo/config"
 	"github.com/tmpbook/go-app-core/demo/controllers"
-
 	"github.com/tmpbook/go-app-core/net/decorator"
 	"github.com/tmpbook/go-app-core/utils/common"
 )
@@ -18,21 +16,26 @@ var (
 )
 
 func init() {
-	// 解析 flag，包含import package 中的 init
+	// parse all flag that include common package
+	// this statement must run first
 	flag.Parse()
-	// flag 解析完成后，读取配置文件（因为配置文件是通过 flag 来指定的）
-	config.Load()
+
+	// load config file which specified by flag -c
+	common.LoadConfigFromFileAndWatch()
+
+	// print versions if -v = true
+	common.PrintVersion()
+
+	// print all flags we used
+	common.PrintFlags()
+
+	// print config file content we loaded
+	common.PrintConfig()
 }
 
 func main() {
-	// -v 打印 version
-	common.PrintVersion()
-	// 打印解析后的 flags
-	common.PrintFlags()
-	// 打印读取的配置文件
-	common.PrintConfig()
 
-	// 开始你的表演
+	// start to play
 	http.HandleFunc("/", decorator.ErrorCatcher(controllers.DemoController))
 	http.HandleFunc("/reload-config", decorator.ErrorCatcher(controllers.ReloadConfigController))
 
