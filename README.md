@@ -8,13 +8,61 @@ This project provides the basic configuration file management and command line p
 
 ### Usage
 
-#### Step 1: Compile
+#### Step 1: Go get
 
+```
+go get github.com/tmpbook/go-app-core/utils/common
+```
+
+#### Step 2: Write your app
+```go
+package main
+
+import (
+    "github.com/tmpbook/go-app-core/utils/common"
+    ...
+)
+
+func init() {
+	// parse all flag that include common package
+	// this statement must run first
+	flag.Parse()
+
+	// default is ./config.json, you can specified it by flag -c, watch signal to reload config file(CMD:kill -s SIGHUP [pid]) by add -w when start 
+	common.LoadConfigFromFileAndWatch()
+
+	// print versions if -v = true
+	common.PrintVersion()
+
+	// print all flags we used
+	common.PrintFlags()
+
+	// print config file content we loaded
+	common.PrintConfig()
+}
+
+func main() {
+  ...
+}
+```
+
+#### Step 3: Compile it
+
+[Makefile](/demo/Makefile)
+```
+GIT_COMMIT=`git rev-parse --short HEAD`
+BUILD_TIME=`date +%FT%T%z`
+
+LDFLAGS=-ldflags "-X github.com/tmpbook/go-app-core/utils/common.gitCommit=$(GIT_COMMIT) -X github.com/tmpbook/go-app-core/utils/common.buildTime=$(BUILD_TIME)"
+all:
+	go build $(LDFLAGS)
+```
+and then
 ```bash
 cd demo/
 make
-./demo -h 127.0.0.1 -p 8888 -c ./config.json
 ```
+
 Check compile version
 ```bash
 ➜ ./demo -v
@@ -22,19 +70,20 @@ Git Commit: e6a6ba1
 Build Time: 2017-09-20T19:23:19+0800
 ```
 
-#### Step 2: Run
+#### Step 4: Run it
 ```bash
 ➜ ./demo.go
-=-------=
-| flags |
-=-------=
-flag = c          value = config.json     help = configuration file, json format
-flag = h          value = localhost       help = host
-flag = p          value = 8910    help = port
-flag = v          value = false           help = version
-=-------=
-|configs|
-=-------=
+-------
+ flags
+-------
+flag = c          value = config.json      configuration file, json format
+flag = h          value = localhost        host
+flag = p          value = 8910             port
+flag = v          value = false            version
+flag = w          value = false            reload config file by signal (kill -s SIGHUP [pid])
+---------
+ configs
+---------
 {
   "version": "1.0",
   "content": {
@@ -45,9 +94,9 @@ flag = v          value = false           help = version
 2017/09/20 19:22:21 Listening on: localhost:8910
 ```
 
-### Read from config.json
+### Read config which default is ./config.json or specified by flag `-c`
 
-If we have a `config.json` file like below:
+If you have a [config.json](/demo/config.json) file like below:
 ```json
 {
     "version": "1.0",
@@ -56,21 +105,22 @@ If we have a `config.json` file like below:
     }
 }
 ```
-Read it like this:
+
+Get values:
 ```go
 content, _ := common.GetConfigByKey("content.say-hello")
 ```
-As you see, it support get config with dot.
+As you see, it support dot.
 
-### Screenshots
+### Demo Screenshots
 
 #### Terminal
-![demo](images/terminal.png)
+![demo](/images/terminal.png)
 
 
-#### Http test
+#### Testing read config file by HTTP
 
-![chrome](images/chrome.png)
+![chrome](/images/chrome.png)
 
 #### Contribution Welcomed!
-> [Report issue](https://github.com/tmpbook/go-app-core/issues/new) or pull request, or email nauy2011@126.com.
+> [Report issue](https://github.com/tmpbook/go-app-core/issues/new) or pull request, or email nauy2011@126.com

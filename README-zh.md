@@ -1,36 +1,91 @@
+
+
 <h1>Go Application Core</h1>
 
-本项目为 Go 程序提供基本的配置文件管理和命令行参数管理等功能，追求 Go 编程最佳实践
+[![Build Status](https://travis-ci.org/tmpbook/go-app-core.svg?branch=master)](https://travis-ci.org/tmpbook/go-app-core) [![Go Report Card](https://goreportcard.com/badge/github.com/tmpbook/go-app-core)](https://goreportcard.com/report/github.com/tmpbook/go-app-core)
 
-### 具体使用方法
+go-app-core 只需两行代码，即可为 Go 程序提供必不可少的配置文件管理、命令行参数管理、编译版本管理等功能，追求 Go 编程最「简」实践。
 
-#### Step 1：编译
+[中文 README.md](README-zh.md)
+
+### 如何使用
+
+#### 第一步
+
+```
+go get github.com/tmpbook/go-app-core/utils/common
+```
+
+#### 第二步
+```go
+package main
+
+import (
+    "github.com/tmpbook/go-app-core/utils/common"
+    ...
+)
+
+func init() {
+	// parse all flag that include common package
+	// this statement must run first
+	flag.Parse()
+
+	// default is ./config.json, you can specified it by flag -c, watch signal to reload config file(CMD:kill -s SIGHUP [pid]) by add -w when start 
+	common.LoadConfigFromFileAndWatch()
+
+	// print versions if -v = true
+	common.PrintVersion()
+
+	// print all flags we used
+	common.PrintFlags()
+
+	// print config file content we loaded
+	common.PrintConfig()
+}
+
+func main() {
+  ...
+}
+```
+
+#### 第三步：编译
+
+[Makefile](/demo/Makefile)
+```
+GIT_COMMIT=`git rev-parse --short HEAD`
+BUILD_TIME=`date +%FT%T%z`
+
+LDFLAGS=-ldflags "-X github.com/tmpbook/go-app-core/utils/common.gitCommit=$(GIT_COMMIT) -X github.com/tmpbook/go-app-core/utils/common.buildTime=$(BUILD_TIME)"
+all:
+	go build $(LDFLAGS)
+```
+and then
 ```bash
 cd demo/
 make
-./demo -h 127.0.0.1 -p 8888 -c ./config.json
 ```
-查看编译版本
 
+Check compile version
 ```bash
 ➜ ./demo -v
 Git Commit: e6a6ba1
 Build Time: 2017-09-20T19:23:19+0800
 ```
 
-#### Step 2：启动
+#### 第四步：执行
 ```bash
 ➜ ./demo.go
-=-------=
-| flags |
-=-------=
-flag = c          value = config.json     help = configuration file, json format
-flag = h          value = localhost       help = host
-flag = p          value = 8910    help = port
-flag = v          value = false           help = version
-=-------=
-|configs|
-=-------=
+-------
+ flags
+-------
+flag = c          value = config.json      configuration file, json format
+flag = h          value = localhost        host
+flag = p          value = 8910             port
+flag = v          value = false            version
+flag = w          value = false            reload config file by signal (kill -s SIGHUP [pid])
+---------
+ configs
+---------
 {
   "version": "1.0",
   "content": {
@@ -41,9 +96,9 @@ flag = v          value = false           help = version
 2017/09/20 19:22:21 Listening on: localhost:8910
 ```
 
-### 从 config.json 文件读取配置
+### 读取通过 flag `-c` 指定的配置（如果不指定则为 `./config.json`）
 
-如果我们有一个 config.json 如下：
+假设我们有一个 [config.json](/demo/config.json) 如下：
 ```json
 {
     "version": "1.0",
@@ -52,20 +107,22 @@ flag = v          value = false           help = version
     }
 }
 ```
-使用这个语句来读取。
+
+这样取值即可
 ```go
 content, _ := common.GetConfigByKey("content.say-hello")
 ```
-如你所见，它支持点号分隔的取法。
+如你所见，它支持点号
 
-### 截图
+### 示例程序截图
 
-#### 终端操作
-![demo](images/terminal.png)
+#### 终端
+![demo](/images/terminal.png)
 
-#### 测试 Http
 
-![chrome](images/chrome.png)
+#### 测试 HTTP 请求访问配置文件
 
-#### Contribution Welcomed!
-> [Report issue](https://github.com/tmpbook/go-app-core/issues/new) or pull request, or email nauy2011@126.com，任何想法都可以[告诉我](https://github.com/tmpbook/go-app-core/issues/new)
+![chrome](/images/chrome.png)
+
+#### 欢迎贡献你的代码
+> [Report issue](https://github.com/tmpbook/go-app-core/issues/new) or pull request, or email nauy2011@126.com.
