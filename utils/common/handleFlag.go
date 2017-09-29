@@ -16,9 +16,9 @@ func PrintFlags() {
 	visitor := func(a *flag.Flag) {
 		fmt.Println("flag =", a.Name, "\t", " value =", a.Value, "\t", a.Usage)
 	}
-	fmt.Println("-------")
-	fmt.Println(" flags ")
-	fmt.Println("-------")
+	fmt.Println("------------------------------------------------------------------------------")
+	fmt.Println(" flags:")
+	fmt.Println("------------------------------------------------------------------------------")
 	flag.VisitAll(visitor)
 }
 

@@ -116,9 +116,9 @@ func LoadConfigFromFileAndWatch() (err error) {
 func PrintConfig() {
 	var prejson bytes.Buffer
 	json.Indent(&prejson, configByte, "", "  ")
-	fmt.Println("---------")
-	fmt.Println(" configs")
-	fmt.Println("---------")
+	fmt.Println("------------------------------------------------------------------------------")
+	fmt.Println(" configs:")
+	fmt.Println("------------------------------------------------------------------------------")
 	fmt.Println(string(prejson.Bytes()))
 }
 
