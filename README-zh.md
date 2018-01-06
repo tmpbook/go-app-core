@@ -135,3 +135,16 @@ content, _ := common.GetConfigByKey("content.say-hello")
 
 #### 欢迎贡献你的代码
 > [Report issue](https://github.com/tmpbook/go-app-core/issues/new) or pull request, or email nauy2011@126.com.
+
+### 关于我
+
+知乎：[临书](https://www.zhihu.com/people/tmpbook/activities)
+
+微信（WeChat）：
+
+<div align=center>
+    <img width="150" height="150" src="https://github.com/tmpbook/Django-with-ElasticSearch/blob/master/Wechat.jpeg"/>
+</div>
+
+<div align=right>谢谢阅读</div>
+<div align=right>Thanks for watching</div>
