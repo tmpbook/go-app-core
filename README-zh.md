@@ -6,7 +6,16 @@
 
 go-app-core 只需两行代码，即可为 Go 程序提供必不可少的配置文件管理、命令行参数管理、编译版本管理等功能，追求 Go 编程最「简」实践。
 
-[中文 README.md](README-zh.md)
+[README.md](README.md)
+
+### TODO
+
+- [x] Config
+- [x] Flag
+- [x] Version
+- [x] Stopwatch
+- [ ] Log
+- [ ] Task
 
 ### 如何使用
 

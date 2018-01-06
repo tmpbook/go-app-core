@@ -6,6 +6,15 @@ This project provides the basic configuration file management and command line p
 
 [中文 README.md](README-zh.md)
 
+### TODO
+
+- [x] Config
+- [x] Flag
+- [x] Version
+- [x] Stopwatch
+- [ ] Log
+- [ ] Task
+
 ### Usage
 
 #### Step 1: Go get
