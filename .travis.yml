@@ -15,6 +15,6 @@ after_script:
   - rm -rf demo
 
 script:
-  - cd demo
+  - cd examples
   - make
-  - ./demo -v
+  - ./examples -v
