@@ -5,7 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/tmpbook/go-app-core/demo/controllers"
+	"go-app-core/examples/controllers"
+
 	"github.com/tmpbook/go-app-core/net/decorator"
 	"github.com/tmpbook/go-app-core/utils/common"
 )
