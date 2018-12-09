@@ -7,6 +7,7 @@ go:
 
 install:
   - go get github.com/go-sql-driver/mysql
+  - go get github.com/pkg/sftp
 
 before_script:
   - go test -v ./utils/common/
