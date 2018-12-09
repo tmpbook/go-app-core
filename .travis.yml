@@ -10,11 +10,9 @@ install:
 
 before_script:
   - go test -v ./utils/common/
-
-after_script:
-  - rm -rf demo
-
-script:
-  - cd examples
-  - make
-  - ./examples -v
+# after_script:
+#   - rm -rf examples
+# script:
+#   - cd examples
+#   - make
+#   - ./examples -v
