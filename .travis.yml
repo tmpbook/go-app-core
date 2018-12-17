@@ -10,12 +10,7 @@ install:
   # - go get github.com/pkg/sftp
 
 before_script:
-  - go test -timeout 30s go-app-core/pkg/common/flagV
-  - go test -timeout 30s go-app-core/pkg/common/jsonconfig
-  - go test -timeout 30s go-app-core/pkg/common/stopwatch
-  - go test -timeout 30s go-app-core/pkg/common/timeout
-  - go test -timeout 30s go-app-core/pkg/common/version
-  - go test -timeout 30s go-app-core/pkg/ssh
+  - go test -timeout 30s ./...
 # after_script:
 #   - rm -rf examples
 # script:
