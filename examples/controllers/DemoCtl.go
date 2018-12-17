@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/tmpbook/go-app-core/utils/common"
+	"github.com/tmpbook/go-app-core/core/common/jsonConfig"
 )
 
 // DemoController R.T.
 func DemoController(w http.ResponseWriter, r *http.Request) error {
-	content, err := common.GetConfigByKey("content.say-hello")
+	content, err := jsonConfig.GetConfigByKey("content.say-hello")
 	if err != nil {
 		return fmt.Errorf("when get config key: %v", err)
 	}
