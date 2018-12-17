@@ -4,7 +4,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/tmpbook/go-app-core/core/common/timeout"
+	"github.com/tmpbook/go-app-core/pkg/common/timeout"
 )
 
 // Gorouting instance which can accept client jobs
