@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"go-app-core/utils/grpool"
+	"go-app-core/grpool"
 
 	"golang.org/x/crypto/ssh"
 )
@@ -167,12 +167,12 @@ func (s *SSHExecAgent) SFTPHostByKey(hosts []string, port int, user string, loca
 			returnResult[JobID].LocalFilePath = localFilePath
 			returnResult[JobID].RemoteFilePath = remoteFilePath
 			returnResult[JobID].Error = errors.New("ssh time out")
-			errorText += "the host " + hosts[JobID] + " commond  exec time out."
+			errorText += "the host " + hosts[JobID] + " command  exec time out."
 		} else {
 			execResult, _ := res.Result.(ExecResult)
 			returnResult[JobID] = execResult
 			if execResult.Error != nil {
-				errorText += "the host " + execResult.Host + " commond  exec error.\n" + "rsult info :" + execResult.Result + ".\nerror info :" + execResult.Error.Error()
+				errorText += "the host " + execResult.Host + " command  exec error.\n" + "result info :" + execResult.Result + ".\nerror info :" + execResult.Error.Error()
 			}
 		}
 	}
