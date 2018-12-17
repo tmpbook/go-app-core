@@ -7,7 +7,7 @@ import (
 	"os"
 	"time"
 
-	"go-app-core/grpool"
+	"go-app-core/go-routine-pool"
 
 	"golang.org/x/crypto/ssh"
 )

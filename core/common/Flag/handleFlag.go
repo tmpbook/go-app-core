@@ -1,4 +1,4 @@
-package common
+package flagV
 
 import (
 	"flag"
@@ -20,13 +20,4 @@ func PrintFlags() {
 	fmt.Println(" flags:")
 	fmt.Println("------------------------------------------------------------------------------")
 	flag.VisitAll(visitor)
-}
-
-// GetFlagByName get value by flag name
-func GetFlagByName(name string) (value string, err error) {
-	flag := flag.Lookup(name)
-	if flag == nil {
-		return "", fmt.Errorf("Can't find flag[\"%s\"]", name)
-	}
-	return flag.Value.String(), nil
 }
