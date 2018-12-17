@@ -6,8 +6,7 @@ go:
   - master
 
 install:
-  # - go get github.com/go-sql-driver/mysql
-  # - go get github.com/pkg/sftp
+  - go get github.com/tmpbook/go-app-core
 
 before_script:
   - go test -timeout 30s ./...
