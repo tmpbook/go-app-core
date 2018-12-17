@@ -6,11 +6,16 @@ go:
   - master
 
 install:
-  - go get github.com/go-sql-driver/mysql
-  - go get github.com/pkg/sftp
+  # - go get github.com/go-sql-driver/mysql
+  # - go get github.com/pkg/sftp
 
 before_script:
-  - go test -v ./utils/common/
+  - go test -timeout 30s go-app-core/core/common/flagV
+  - go test -timeout 30s go-app-core/core/common/jsonconfig
+  - go test -timeout 30s go-app-core/core/common/stopwatch
+  - go test -timeout 30s go-app-core/core/common/timeout
+  - go test -timeout 30s go-app-core/core/common/version
+  - go test -timeout 30s go-app-core/core/ssh
 # after_script:
 #   - rm -rf examples
 # script:
