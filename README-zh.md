@@ -1,5 +1,3 @@
-
-
 <h1>Go Application Core</h1>
 
 [![Build Status](https://travis-ci.org/tmpbook/go-app-core.svg?branch=master)](https://travis-ci.org/tmpbook/go-app-core) [![Go Report Card](https://goreportcard.com/badge/github.com/tmpbook/go-app-core)](https://goreportcard.com/report/github.com/tmpbook/go-app-core)
@@ -10,12 +8,10 @@ go-app-core 只需两行代码，即可为 Go 程序提供必不可少的配置�
 
 ### TODO
 
-- [x] Config
-- [x] Flag
-- [x] Version
-- [x] Stopwatch
-- [ ] Log
-- [ ] Task
+- [x] [use flag](pkg/common/flagV/flagV.go)
+- [x] [use json config](pkg/common/jsonConfig/config.go)
+- [x] [add commit SHA as app version](pkg/common/version/version.go)
+- [x] [stop watch](pkg/common/stopwatch/stopwatch.go)
 
 ### 如何使用
 
@@ -26,6 +22,7 @@ go get github.com/tmpbook/go-app-core/utils/common
 ```
 
 #### 第二步
+
 ```go
 package main
 
@@ -35,21 +32,21 @@ import (
 )
 
 func init() {
-	// parse all flag that include common package
-	// this statement must run first
-	flag.Parse()
+    // parse all flag that include common package
+    // this statement must run first
+    flag.Parse()
 
-	// default is ./config.json, you can specified it by flag -c, watch signal to reload config file(CMD:kill -s SIGHUP [pid]) by add -w when start 
-	common.LoadConfigFromFileAndWatch()
+    // default is ./config.json, you can specified it by flag -c, watch signal to reload config file(CMD:kill -s SIGHUP [pid]) by add -w when start
+    common.LoadConfigFromFileAndWatch()
 
-	// print versions if -v = true
-	common.PrintVersion()
+    // print versions if -v = true
+    common.PrintVersion()
 
-	// print all flags we used
-	common.PrintFlags()
+    // print all flags we used
+    common.PrintFlags()
 
-	// print config file content we loaded
-	common.PrintConfig()
+    // print config file content we loaded
+    common.PrintConfig()
 }
 
 func main() {
@@ -60,21 +57,25 @@ func main() {
 #### 第三步：编译
 
 [Makefile](/demo/Makefile)
+
 ```
 GIT_COMMIT=`git rev-parse --short HEAD`
 BUILD_TIME=`date +%FT%T%z`
 
 LDFLAGS=-ldflags "-X github.com/tmpbook/go-app-core/utils/common.gitCommit=$(GIT_COMMIT) -X github.com/tmpbook/go-app-core/utils/common.buildTime=$(BUILD_TIME)"
 all:
-	go build $(LDFLAGS)
+    go build $(LDFLAGS)
 ```
+
 and then
+
 ```bash
 cd demo/
 make
 ```
 
 Check compile version
+
 ```bash
 ➜ ./demo -v
 Git Commit: e6a6ba1
@@ -82,6 +83,7 @@ Build Time: 2017-09-20T19:23:19+0800
 ```
 
 #### 第四步：执行
+
 ```bash
 ➜ ./demo.go
 -------
@@ -108,32 +110,36 @@ flag = w          value = false            reload config file by signal (kill -s
 ### 读取通过 flag `-c` 指定的配置（如果不指定则为 `./config.json`）
 
 假设我们有一个 [config.json](/demo/config.json) 如下：
+
 ```json
 {
-    "version": "1.0",
-    "content": {
-        "say-hello": "Hello from config.json."
-    }
+  "version": "1.0",
+  "content": {
+    "say-hello": "Hello from config.json."
+  }
 }
 ```
 
 这样取值即可
+
 ```go
 content, _ := common.GetConfigByKey("content.say-hello")
 ```
+
 如你所见，它支持点号
 
 ### 示例程序截图
 
 #### 终端
-![demo](/images/terminal.png)
 
+![demo](/images/terminal.png)
 
 #### 测试 HTTP 请求访问配置文件
 
 ![chrome](/images/chrome.png)
 
 #### 欢迎贡献你的代码
+
 > [Report issue](https://github.com/tmpbook/go-app-core/issues/new) or pull request, or email nauy2011@126.com.
 
 ### 关于我

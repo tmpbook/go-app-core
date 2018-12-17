@@ -8,12 +8,10 @@ This project provides the basic configuration file management and command line p
 
 ### TODO
 
-- [x] Config
-- [x] Flag
-- [x] Version
-- [x] Stopwatch
-- [ ] Log
-- [ ] Task
+- [x] [use flag](pkg/common/flagV/flagV.go)
+- [x] [use json config](pkg/common/jsonConfig/config.go)
+- [x] [add commit SHA as app version](pkg/common/version/version.go)
+- [x] [stop watch](pkg/common/stopwatch/stopwatch.go)
 
 ### Usage
 
@@ -24,6 +22,7 @@ go get github.com/tmpbook/go-app-core/utils/common
 ```
 
 #### Step 2: Write your app
+
 ```go
 package main
 
@@ -33,21 +32,21 @@ import (
 )
 
 func init() {
-	// parse all flag that include common package
-	// this statement must run first
-	flag.Parse()
+    // parse all flag that include common package
+    // this statement must run first
+    flag.Parse()
 
-	// default is ./config.json, you can specified it by flag -c, watch signal to reload config file(CMD:kill -s SIGHUP [pid]) by add -w when start 
-	common.LoadConfigFromFileAndWatch()
+    // default is ./config.json, you can specified it by flag -c, watch signal to reload config file(CMD:kill -s SIGHUP [pid]) by add -w when start
+    common.LoadConfigFromFileAndWatch()
 
-	// print versions if -v = true
-	common.PrintVersion()
+    // print versions if -v = true
+    common.PrintVersion()
 
-	// print all flags we used
-	common.PrintFlags()
+    // print all flags we used
+    common.PrintFlags()
 
-	// print config file content we loaded
-	common.PrintConfig()
+    // print config file content we loaded
+    common.PrintConfig()
 }
 
 func main() {
@@ -58,21 +57,25 @@ func main() {
 #### Step 3: Compile it
 
 [Makefile](/demo/Makefile)
+
 ```
 GIT_COMMIT=`git rev-parse --short HEAD`
 BUILD_TIME=`date +%FT%T%z`
 
 LDFLAGS=-ldflags "-X github.com/tmpbook/go-app-core/utils/common.gitCommit=$(GIT_COMMIT) -X github.com/tmpbook/go-app-core/utils/common.buildTime=$(BUILD_TIME)"
 all:
-	go build $(LDFLAGS)
+    go build $(LDFLAGS)
 ```
+
 and then
+
 ```bash
 cd demo/
 make
 ```
 
 Check compile version
+
 ```bash
 ➜ ./demo -v
 Git Commit: e6a6ba1
@@ -80,6 +83,7 @@ Build Time: 2017-09-20T19:23:19+0800
 ```
 
 #### Step 4: Run it
+
 ```bash
 ➜ ./demo.go
 -------
@@ -106,30 +110,34 @@ flag = w          value = false            reload config file by signal (kill -s
 ### Read config which default is ./config.json or specified by flag `-c`
 
 If you have a [config.json](/demo/config.json) file like below:
+
 ```json
 {
-    "version": "1.0",
-    "content": {
-        "say-hello": "Hello from config.json."
-    }
+  "version": "1.0",
+  "content": {
+    "say-hello": "Hello from config.json."
+  }
 }
 ```
 
 Get values:
+
 ```go
 content, _ := common.GetConfigByKey("content.say-hello")
 ```
+
 As you see, it support dot.
 
 ### Demo Screenshots
 
 #### Terminal
-![demo](/images/terminal.png)
 
+![demo](/images/terminal.png)
 
 #### Testing read config file by HTTP
 
 ![chrome](/images/chrome.png)
 
 #### Contribution Welcomed!
+
 > [Report issue](https://github.com/tmpbook/go-app-core/issues/new) or pull request, or email nauy2011@126.com
