@@ -1,5 +1,11 @@
 # flag
 
+## install
+
+```bash
+go get github.com/tmpbook/go-app-core/pkg/common/flagV
+```
+
 ## cmd
 
 ```bash
